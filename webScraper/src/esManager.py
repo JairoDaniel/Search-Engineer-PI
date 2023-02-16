@@ -12,12 +12,14 @@ class EsManagement:
     def __init__(self):
         self.es_client = Elasticsearch(
             [
-                'https://elastic:elastic@localhost:9200/'
+                'http://localhost:9200/'
             ],
+            #'https://elastic:elastic@localhost:9200/'
             # make sure we verify SSL certificates
-            verify_certs=True,
+            #verify_certs=True,
+            verify_certs=False,
             # provide a path to CA certs on disk
-            ca_certs='../certs/http_ca.crt',
+            #a_certs='../certs/http_ca.crt',
         )
         logging.info(self.es_client.ping())
 
