@@ -18,16 +18,16 @@ import org.springframework.web.bind.annotation.RestController;
  * REST Controller for the search endpoints
  * @author Jairo Ortega
  */
-@Tag(name = "PopularFS")
-@RestController("/popularFS")
+@Tag(name = "searchFS")
+@RestController("/searchFS")
 public class PopularFSController {
 
   @Autowired
   private PopularFSService popularFSService;
 
 
-  @Operation(summary = "Search the movie collection", description = "Executes a search of a movie in the collection")
-  @GetMapping(value = "/popularFS", produces = MediaType.APPLICATION_JSON_VALUE)
+  @Operation(summary = "Search films-series by rate and genre", description = "Executes a search for films-series by rate range (i, ii, iii, iv, v) and genre.")
+  @GetMapping(value = "/searchFS", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Page<PopularFS>> search(@RequestParam("rate") String rate, @RequestParam("genre") String genre, @ParameterObject Pageable pageRequest) {
     return ResponseEntity.ok(popularFSService.search(rate, genre, pageRequest));
   }

@@ -5,12 +5,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 /**
- * Repository for {@link Movie} entities
- * @author Jairo
+ * Repository for {@link Count} entities
+ * @author Jairo Ortega
  */
 public interface CountRepository {
   /**
-   * @param query the query to execute
+   * @param rate the rate range to query
    * @param pageRequest the page request configuration
    * @return a page with the results of the search
    */

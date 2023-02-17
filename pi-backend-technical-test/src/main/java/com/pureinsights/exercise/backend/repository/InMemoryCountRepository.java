@@ -14,7 +14,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.json.JSONObject;
-
+import java.util.*;
 
 /**
  * In-memory implementation of {@link CountRepository}
@@ -23,59 +23,37 @@ import org.json.JSONObject;
 @Repository
 @Slf4j
 public class InMemoryCountRepository implements CountRepository, Closeable {
-
+  /** Variable for the low limit of the range rate to search */
   private double lowLimit = 0.0;
+  /** Variable for the high limit of the range rate to search */
   private double highLimit = 0.0;
-
-  private httpHelper requester = new httpHelper();
-
-  
+  /** Field for query the index on Elasticsearch for counting films-series  */
   private static final String esQueryEndPoint = "imdb/_count";
-
-
+  /** Instance of the http handler for processing http requests */
+  private HttpHandler requester = new HttpHandler();
+  /** Instance of the adapter to set the range of the elasticsearch query limits */
+  private AdapterRangeRate adapterLimits = new AdapterRangeRate();
 
   @PostConstruct
   void init() throws IOException {
-    log.info("Initializing in-memory index with collection");
+    log.info("Initializing index.");
 
-    log.info("In-memory index successfully initialized");
+    log.info("Index successfully initialized.");
   }
 
 
   @Override
   public Page<Count> count(String rate, Pageable pageRequest){
-    
-    switch (rate) {
-      case "i":
-        lowLimit = 8.0;
-        highLimit = 10.0;
-        break;
-      case "ii":
-        lowLimit = 6.0;
-        highLimit = 8.0;
-        break;
-      case "iii":
-        lowLimit = 4.0;
-        highLimit = 6.0;
-        break;
-      case "iv":
-        lowLimit = 2.0;
-        highLimit = 4.0;
-        break;
-      default:
-        lowLimit = 0.0;
-        highLimit = 2.0;
-        break;
-    }
+    double[] limits =  adapterLimits.translateRange(rate);
+    lowLimit = limits[0];
+    highLimit = limits[1];
     try{
-      String jsonInputString = "{\"query\":{\"range\":{\"Rate\":{\"gte\":" + lowLimit + ",\"lt\": "+ highLimit +"}}}}";
-      JSONObject jo = new JSONObject(requester.POST(esQueryEndPoint, jsonInputString));
-    
-      var movies_count = Stream.of(jo)
-        .map(doc -> Count.builder().count(jo.getInt("count")).build())
+      String esQueryCount = "{\"query\":{\"range\":{\"Rate\":{\"gte\":" + lowLimit + ",\"lt\": "+ highLimit +"}}}}";
+      JSONObject esResponse = new JSONObject(requester.POST(esQueryEndPoint, esQueryCount));
+      var movies_count = Stream.of(esResponse)
+        .map(doc -> Count.builder().count(esResponse.getInt("count")).build())
         .collect(Collectors.toList());
-      
-      return new PageImpl<>(movies_count, pageRequest, 1);
+      return new PageImpl<>(movies_count);
     } catch (IOException ex) {
         throw new IllegalStateException(ex);
     }
@@ -83,6 +61,6 @@ public class InMemoryCountRepository implements CountRepository, Closeable {
 
   @Override
   public void close() throws IOException {
-    
+    log.info("Close dependencies.");    
   }
 }

@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * Definition for a Movie entity
+ * Definition for a film-serie entity
  * @author Jairo Ortega
  */
 @Data

@@ -6,8 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * Definition for a Count of movies entity
- * @author Jairo
+ * Definition for a count of films-series entity
+ * @author Jairo Ortega
  */
 @Data
 @NoArgsConstructor

@@ -8,7 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 /**
- * Default implementation of {@link MovieService}
+ * Default implementation of {@link Film-SerieService}
  * @author Jairo Ortega
  */
 @Service

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * REST Controller for the search endpoints
+ * REST Controller for counting by range of rate endpoints
  * @author Jairo Ortega
  */
 @Tag(name = "Count")
@@ -26,7 +26,7 @@ public class CountController {
   private CountService countService;
 
 
-  @Operation(summary = "Count the movie collection", description = "Executes a count of a movie in the collection")
+  @Operation(summary = "Count the amount of movies-series of one particular rate range", description = "Executes a search for counting the elements of any group of rate (i, ii, iii, iv, v).")
   @GetMapping(value = "/count", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Page<Count>> search(@RequestParam("rate") String rate, @ParameterObject Pageable pageRequest) {
     return ResponseEntity.ok(countService.count(rate, pageRequest));
