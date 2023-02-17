@@ -54,15 +54,24 @@ Open the swagger ui: http://localhost:8080/swagger-ui/index.html.
 This get method retrieves the total of documents that matches with the rating range selected (i, ii, iii, iv, v) requested by the "rate" parameter. 
 
 The range are determine by:
+
 i. All above ([8-10[)
+
 ii. [6-8[
+
 iii. [4-6[
+
 iv. [2-4[
+   
 v. All below ([0-2[)
+
+![](https://github.com/JairoDaniel/Search-Engineer-PI/blob/dev/documentationSrc/count.gif)
 
 - Endpoint /searchFS:
 
 This get method retrieves the documents that matches with the genre specified in the "genre" parameter and the rating range selected (i, ii, iii, iv, v) requested by the "rate" parameter.
+
+![](https://github.com/JairoDaniel/Search-Engineer-PI/blob/dev/documentationSrc/searchFS.gif)
 
 ### Implemented Elasticsearch query body
 
