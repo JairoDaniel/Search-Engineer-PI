@@ -106,7 +106,7 @@ The count by rate range is implemented with the following Elasticsearch query.
 
 
 ## Pending tasks
-Since this is my first time working with Elasticsearch and Spring, I had the expected learning curve. Due to that I wasn't able to fully implementing the project conditions, so here is the list of pending task:
+Since this is my first time working with Elasticsearch and Spring, I had to overcome the learning curve by spending most of the time reading the documentation and reviewing examples. Once I achieved a better understanding of the technologies I applyed reverse engineering for the source code provided and unfortunately I wasn't able to fully implementing the project requirements, so I'm attaching the list of pending task:
 - [ ] Integrate the pagination for the search with range rate and genre.
 - [ ] Unit testing 
 
